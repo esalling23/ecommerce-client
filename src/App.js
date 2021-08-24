@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react'
+import React, { useState, useEffect, Fragment } from 'react'
 import { Route } from 'react-router-dom'
 import { v4 as uuid } from 'uuid'
 
@@ -9,20 +9,27 @@ import SignUp from './components/auth/SignUp'
 import SignIn from './components/auth/SignIn'
 import SignOut from './components/auth/SignOut'
 import ChangePassword from './components/auth/ChangePassword'
+import Cart from './components/orders/Cart'
 
-class App extends Component {
-  constructor (props) {
-    super(props)
-    this.state = {
-      user: null,
-      msgAlerts: []
+import { createOrder } from './api/orders'
 
 const App = () => {
   const [user, setUserState] = useState(null)
   const [msgAlerts, setMsgAlerts] = useState([])
+  const [order, setOrder] = useState(null)
 
+  useEffect(() => {
+    if (user) {
+      // user sign in, get current order
+      createOrder(user)
+        .then(res => setOrder(res.data.order))
+        .catch(err => msgAlert({
+          heading: 'Error loading cart.',
+          message: 'Something went wrong: ' + err.message,
+          variant: 'danger'
+        }))
     }
-  }
+  }, [user])
 
   const setUser = (user) => setUserState(user)
 
@@ -81,7 +88,13 @@ const App = () => {
             <ChangePassword msgAlert={msgAlert} user={user} />
           )}
         />
-              <ChangePassword msgAlert={this.msgAlert} user={user} />
+        <AuthenticatedRoute
+          user={user}
+          path='/cart'
+          render={() => (
+            <Cart msgAlert={msgAlert} user={user} order={order}/>
+          )}
+        />
           )}
         />
       </main>
