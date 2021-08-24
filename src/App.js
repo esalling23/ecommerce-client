@@ -10,6 +10,7 @@ import SignIn from './components/auth/SignIn'
 import SignOut from './components/auth/SignOut'
 import ChangePassword from './components/auth/ChangePassword'
 import Cart from './components/orders/Cart'
+import ProductList from './components/products/ProductList'
 
 import { createOrder } from './api/orders'
 
@@ -95,6 +96,15 @@ const App = () => {
             <Cart msgAlert={msgAlert} user={user} order={order}/>
           )}
         />
+        <Route
+          path='/'
+          render={() => (
+            <ProductList
+              msgAlert={msgAlert}
+              user={user}
+              setOrder={setOrder}
+              order={order}
+            />
           )}
         />
       </main>
