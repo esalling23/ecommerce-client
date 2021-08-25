@@ -1,4 +1,6 @@
 import React, { useState, useEffect, Fragment } from 'react'
+import { Elements } from '@stripe/react-stripe-js'
+import { loadStripe } from '@stripe/stripe-js'
 import { Route } from 'react-router-dom'
 import { v4 as uuid } from 'uuid'
 
@@ -13,6 +15,8 @@ import Cart from './components/orders/Cart'
 import ProductList from './components/products/ProductList'
 
 import { createOrder } from './api/orders'
+
+const stripePromise = loadStripe('pk_test_51HtHLTIILRHGeAn02ibfcqyDtGe4EAD0Qubsd3jPzOrIg5fnYSwaMDNDHaDsUx3XQZUgbq67UhLraMjpOQIWXfex0064HXxmqF')
 
 const App = () => {
   const [user, setUserState] = useState(null)
@@ -93,7 +97,9 @@ const App = () => {
           user={user}
           path='/cart'
           render={() => (
-            <Cart msgAlert={msgAlert} user={user} order={order}/>
+            <Elements stripe={stripePromise}>
+              <Cart msgAlert={msgAlert} user={user} order={order}/>
+            </Elements>
           )}
         />
         <Route
