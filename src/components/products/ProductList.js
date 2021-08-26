@@ -1,10 +1,28 @@
 import React, { useState, useEffect } from 'react'
 import { withRouter } from 'react-router-dom'
-import Product from './Product'
+import styled from 'styled-components'
+
+import ProductComponent from './Product'
 import { updateOrder } from '../../api/orders'
 import { indexProducts } from '../../api/products'
 
-const ProductList = ({ order, setOrder, user, msgAlert, history }) => {
+import Container from 'react-bootstrap/Container'
+
+const ProductList = styled(Container)`
+  align-items: center;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  margin: 2rem 0;
+
+  &:after {
+    content: "";
+    flex-basis: 24%;
+    flex-grow: 0;
+  }
+`
+
+const ProductListComponent = ({ order, setOrder, user, msgAlert, history }) => {
   const [products, setProducts] = useState(null)
 
   useEffect(() => {
@@ -26,6 +44,11 @@ const ProductList = ({ order, setOrder, user, msgAlert, history }) => {
     // if no order or user, send user to sign in
     if (!order || !user) {
       history.push('/sign-in')
+      msgAlert({
+        heading: 'Please sign in',
+        message: 'Login or create an account to start shopping',
+        variant: 'info'
+      })
       return
     }
 
@@ -44,10 +67,10 @@ const ProductList = ({ order, setOrder, user, msgAlert, history }) => {
   }
 
   return (
-    <>
+    <ProductList fluid>
       {products
         ? products.map(product =>
-          <Product
+          <ProductComponent
             key={product._id}
             id={product._id}
             title={product.title}
@@ -57,8 +80,8 @@ const ProductList = ({ order, setOrder, user, msgAlert, history }) => {
           />
         )
         : 'Loading...'}
-    </>
+    </ProductList>
   )
 }
 
-export default withRouter(ProductList)
+export default withRouter(ProductListComponent)
