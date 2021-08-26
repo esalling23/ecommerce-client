@@ -1,4 +1,6 @@
 import React, { useState, useEffect, Fragment } from 'react'
+import { Elements } from '@stripe/react-stripe-js'
+import { loadStripe } from '@stripe/stripe-js'
 import { Route } from 'react-router-dom'
 import { v4 as uuid } from 'uuid'
 
@@ -14,6 +16,8 @@ import ProductList from './components/products/ProductList'
 
 import { createOrder } from './api/orders'
 
+const stripePromise = loadStripe('pk_test_51HtHLTIILRHGeAn02ibfcqyDtGe4EAD0Qubsd3jPzOrIg5fnYSwaMDNDHaDsUx3XQZUgbq67UhLraMjpOQIWXfex0064HXxmqF')
+
 const App = () => {
   const [user, setUserState] = useState(null)
   const [msgAlerts, setMsgAlerts] = useState([])
@@ -22,13 +26,7 @@ const App = () => {
   useEffect(() => {
     if (user) {
       // user sign in, get current order
-      createOrder(user)
-        .then(res => setOrder(res.data.order))
-        .catch(err => msgAlert({
-          heading: 'Error loading cart.',
-          message: 'Something went wrong: ' + err.message,
-          variant: 'danger'
-        }))
+      getCreateOrder()
     }
   }, [user])
 
@@ -43,6 +41,16 @@ const App = () => {
   const msgAlert = ({ heading, message, variant }) => {
     const id = uuid()
     setMsgAlerts(alerts => [...alerts, { heading, message, variant, id }])
+  }
+
+  const getCreateOrder = () => {
+    createOrder(user)
+      .then(res => setOrder(res.data.order))
+      .catch(err => msgAlert({
+        heading: 'Error loading cart.',
+        message: 'Something went wrong: ' + err.message,
+        variant: 'danger'
+      }))
   }
 
   return (
@@ -93,11 +101,14 @@ const App = () => {
           user={user}
           path='/cart'
           render={() => (
-            <Cart msgAlert={msgAlert} user={user} order={order}/>
+            <Elements stripe={stripePromise}>
+              <Cart msgAlert={msgAlert} user={user} order={order} completeOrder={getCreateOrder}/>
+            </Elements>
           )}
         />
         <Route
           path='/'
+          exact
           render={() => (
             <ProductList
               msgAlert={msgAlert}

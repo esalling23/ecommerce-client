@@ -22,3 +22,14 @@ export const updateOrder = (orderId, productId, user) => {
     }
   })
 }
+
+export const checkoutOrder = (orderId, user) => {
+  return axios({
+    url: apiUrl + '/orders/' + orderId + '/checkout',
+    method: 'patch',
+    data: {},
+    headers: {
+      Authorization: `Bearer ${user.token}`
+    }
+  })
+}
