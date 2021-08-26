@@ -26,13 +26,7 @@ const App = () => {
   useEffect(() => {
     if (user) {
       // user sign in, get current order
-      createOrder(user)
-        .then(res => setOrder(res.data.order))
-        .catch(err => msgAlert({
-          heading: 'Error loading cart.',
-          message: 'Something went wrong: ' + err.message,
-          variant: 'danger'
-        }))
+      getCreateOrder()
     }
   }, [user])
 
@@ -47,6 +41,16 @@ const App = () => {
   const msgAlert = ({ heading, message, variant }) => {
     const id = uuid()
     setMsgAlerts(alerts => [...alerts, { heading, message, variant, id }])
+  }
+
+  const getCreateOrder = () => {
+    createOrder(user)
+      .then(res => setOrder(res.data.order))
+      .catch(err => msgAlert({
+        heading: 'Error loading cart.',
+        message: 'Something went wrong: ' + err.message,
+        variant: 'danger'
+      }))
   }
 
   return (
@@ -98,7 +102,7 @@ const App = () => {
           path='/cart'
           render={() => (
             <Elements stripe={stripePromise}>
-              <Cart msgAlert={msgAlert} user={user} order={order}/>
+              <Cart msgAlert={msgAlert} user={user} order={order} completeOrder={getCreateOrder}/>
             </Elements>
           )}
         />
