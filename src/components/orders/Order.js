@@ -21,7 +21,7 @@ const Order = ({ total, products }) => (
             {product.title} - ${product.price}
           </ListGroup.Item>
         ))}
-        <ListGroup.Item variant='warning'>Total: ${total}</ListGroup.Item>
+        <ListGroup.Item style={{ fontWeight: 'bold' }} variant='warning'>Total: ${total}</ListGroup.Item>
       </ListGroup>)
       : 'No products yet, go add some to the cart!'}
   </StyledOrder>
