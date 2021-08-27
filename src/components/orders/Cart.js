@@ -3,8 +3,11 @@ import styled from 'styled-components'
 import { withRouter } from 'react-router-dom'
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js'
 
+import Spinner from 'react-bootstrap/Spinner'
+
 import Order from './Order'
 import Button from '../styled/Buttons'
+import { ColoredPanel } from '../styled/Panels'
 import { paymentIntent } from '../../api/stripe'
 import { checkoutOrder } from '../../api/orders'
 
@@ -13,6 +16,7 @@ import Form from 'react-bootstrap/Form'
 const CheckoutForm = styled(Form)`
   min-height: 100%;
   position: relative;
+  width: 100%;
 `
 
 const CheckoutButton = styled(Button)`
@@ -21,9 +25,7 @@ const CheckoutButton = styled(Button)`
   width: 100%;
 `
 
-const CheckoutBackground = styled.div`
-  border-radius: 0.25em;
-  border: 1px solid rgba(0, 0, 0, 0.125);
+const CheckoutBackground = styled(ColoredPanel)`
   height: 10em;
   width: 100%;
 
@@ -115,14 +117,18 @@ const Cart = ({ order, user, msgAlert, completeOrder, history }) => {
             <Order products={order.products} total={total}/>
           </>
         )}
-        {clientSecret && (
-          <CheckoutBackground className="bg-accent m-2 p-3">
-            <CheckoutForm onSubmit={handleCheckout}>
+
+        <CheckoutBackground variant="accent" className="m-2 p-3">
+          {clientSecret
+            ? (<CheckoutForm onSubmit={handleCheckout}>
               <CardElement />
               <CheckoutButton type="submit">Checkout</CheckoutButton>
-            </CheckoutForm>
-          </CheckoutBackground>
-        )}
+            </CheckoutForm>)
+            : (<Spinner animation="border" role="status">
+              <span className="visually-hidden">Loading...</span>
+            </Spinner>)
+          }
+        </CheckoutBackground>
       </ViewContainer>
     </>
   )
