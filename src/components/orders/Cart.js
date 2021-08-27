@@ -29,13 +29,17 @@ const CheckoutBackground = styled.div`
 
 const Cart = ({ order, user, msgAlert, completeOrder, history }) => {
   const [clientSecret, setClientSecret] = useState(null)
+  const [total, setTotal] = useState(0)
   const stripe = useStripe()
   const elements = useElements()
 
   useEffect(() => {
     if (order.products.length > 0) {
       paymentIntent(order._id, user)
-        .then(res => setClientSecret(res.data))
+        .then(res => {
+          setClientSecret(res.data.clientSecret)
+          setTotal(res.data.totalPrice)
+        })
         .catch(err => msgAlert({
           heading: 'Payment intent failed',
           message: 'Something went wrong: ' + err.message,
@@ -90,11 +94,11 @@ const Cart = ({ order, user, msgAlert, completeOrder, history }) => {
     <>
       <h2 className="ps-2">Current Cart:</h2>
       <div style={{ display: 'flex', flexDirection: 'row' }}>
-      {order && (
+        {order && (
           <>
-        <Order products={order.products} />
+            <Order products={order.products} total={total}/>
           </>
-      )}
+        )}
         {clientSecret && (
           <CheckoutBackground className="bg-accent m-2 p-3">
             <CheckoutForm onSubmit={handleCheckout}>
