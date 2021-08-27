@@ -24,7 +24,7 @@ const CheckoutButton = styled(Button)`
 const CheckoutBackground = styled.div`
   min-width: 40%;
   border-radius: 0.25em;
-  border: 1px solid rgba(0, 0, 0, 0.125)
+  border: 1px solid rgba(0, 0, 0, 0.125);
 `
 
 const Cart = ({ order, user, msgAlert, completeOrder, history }) => {
