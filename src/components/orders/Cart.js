@@ -22,6 +22,7 @@ const CheckoutButton = styled(Button)`
 `
 
 const CheckoutBackground = styled.div`
+  height: 10em;
   min-width: 40%;
   border-radius: 0.25em;
   border: 1px solid rgba(0, 0, 0, 0.125);
@@ -93,7 +94,7 @@ const Cart = ({ order, user, msgAlert, completeOrder, history }) => {
   return (
     <>
       <h2 className="ps-2">Current Cart:</h2>
-      <div style={{ display: 'flex', flexDirection: 'row' }}>
+      <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'flex-end' }}>
         {order && (
           <>
             <Order products={order.products} total={total}/>
