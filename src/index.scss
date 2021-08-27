@@ -4,4 +4,33 @@ $accent: #F4DB7D;
 $warning: $accent;
 $info:  #9DAAF2;
 $background: white;
+
 @import '~bootstrap/scss/bootstrap';
+body {
+  background: $background;
+}
+.brand {
+  color: $secondary;
+  text-decoration: none;
+
+  &:hover, &:focus {
+    color: darken($secondary, 20%);
+  }
+}
+
+// Color background classes
+.bg-primary {
+  background: $primary;
+}
+
+.bg-secondary {
+  background: $secondary;
+}
+
+.bg-info {
+  background: $info;
+}
+
+.bg-accent {
+  background: $accent;
+}
