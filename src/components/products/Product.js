@@ -1,13 +1,17 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
-import Button from 'react-bootstrap/Button'
+import { AddToCartButton } from '../styled/Buttons'
 import Card from 'react-bootstrap/Card'
 
 const ProductCard = styled(Card)`
   display: inline-flex;
-  width: 24%;
   margin-top: 1em;
+  padding: 1em 0.5em;
+  text-align: center;
+
+  width: 24%;
 
   &:nth-child(1) {
     margin-left: 0;
@@ -16,14 +20,26 @@ const ProductCard = styled(Card)`
   &:nth-child(4n) {
     margin-right: 0;
   }
+
+  @media (max-width: 768px) {
+    width: 49%;
+  }
 `
 
-const ProductComponent = ({ id, title, description, addToCart }) => (
-  <ProductCard>
-    <h4>{title}</h4>
-    <p>{description}</p>
-    <Button onClick={() => addToCart(id)}>Add to cart</Button>
-  </ProductCard>
-)
+const ProductComponent = ({ id, title, price, addToCart }) => {
+  return (
+    <ProductCard>
+      <Link to={`/details/${id}`}>
+        <Card.Img
+          variant="top"
+          src="https://res.cloudinary.com/esalling/image/upload/v1518704988/few_dots.jpg"
+        />
+        <Card.Title style={{ marginTop: '0.5em' }}>{title}</Card.Title>
+      </Link>
+      <Card.Text>${price}</Card.Text>
+      <AddToCartButton onClick={() => addToCart(id)}>Add to cart</AddToCartButton>
+    </ProductCard>
+  )
+}
 
 export default ProductComponent
