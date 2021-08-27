@@ -2,15 +2,11 @@ import styled from 'styled-components'
 import { darken } from 'polished'
 import Button from 'react-bootstrap/Button'
 
-const primary = '#1f3164'
-const secondary = '#FF6A3D'
-const accent = '#F4DB7D'
-
-const lightBorder = 'rgba(0, 0, 0, 0.125)'
+import { primary, secondary, accent, light } from './colors'
 
 const StyledButton = styled(Button)`
   background: ${primary};
-  border: 1px solid ${lightBorder};
+  border: 1px solid ${light};
   color: white;
   margin-top: 1em;
 
@@ -21,7 +17,7 @@ const StyledButton = styled(Button)`
 
 export const AddToCartButton = styled(Button)`
   background: ${secondary};
-  border: 1px solid ${lightBorder};
+  border: 1px solid ${light};
   color: white;
   margin: 0 auto;
   width: 60%;
