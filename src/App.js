@@ -2,7 +2,7 @@ import React, { useState, useEffect, Fragment } from 'react'
 import styled from 'styled-components'
 import { Elements } from '@stripe/react-stripe-js'
 import { loadStripe } from '@stripe/stripe-js'
-import { Route } from 'react-router-dom'
+import { withRouter, Route } from 'react-router-dom'
 import { v4 as uuid } from 'uuid'
 
 import AuthenticatedRoute from './components/AuthenticatedRoute/AuthenticatedRoute'
@@ -14,8 +14,11 @@ import SignOut from './components/auth/SignOut'
 import ChangePassword from './components/auth/ChangePassword'
 import Cart from './components/orders/Cart'
 import ProductListComponent from './components/products/ProductList'
+import ProductPage from './components/products/ProductPage'
 
 import Container from 'react-bootstrap/Container'
+
+import { createOrder, updateOrder } from './api/orders'
 
 const stripePromise = loadStripe('pk_test_51HtHLTIILRHGeAn02ibfcqyDtGe4EAD0Qubsd3jPzOrIg5fnYSwaMDNDHaDsUx3XQZUgbq67UhLraMjpOQIWXfex0064HXxmqF')
 
@@ -46,6 +49,32 @@ const App = () => {
   const msgAlert = ({ heading, message, variant }) => {
     const id = uuid()
     setMsgAlerts(alerts => [...alerts, { heading, message, variant, id }])
+  }
+
+  const addToCart = (prodId) => {
+    // if no order or user, send user to sign in
+    if (!order || !user) {
+      history.push('/sign-in')
+      msgAlert({
+        heading: 'Please sign in',
+        message: 'Login or create an account to start shopping',
+        variant: 'info'
+      })
+      return
+    }
+
+    updateOrder(order._id, prodId, user)
+      .then(res => setOrder(res.data.order))
+      .then(() => msgAlert({
+        heading: 'Added product to the cart',
+        message: 'Check out your cart to see the product',
+        variant: 'success'
+      }))
+      .catch(err => msgAlert({
+        heading: 'Could not add product to the cart',
+        message: 'Something went wrong: ' + err.message,
+        variant: 'danger'
+      }))
   }
 
   const getCreateOrder = () => {
@@ -118,7 +147,19 @@ const App = () => {
             <ProductListComponent
               msgAlert={msgAlert}
               user={user}
-              setOrder={setOrder}
+              addToCart={addToCart}
+              order={order}
+            />
+          )}
+        />
+        <Route
+          path='/details/:id'
+          exact
+          render={() => (
+            <ProductPage
+              msgAlert={msgAlert}
+              user={user}
+              addToCart={addToCart}
               order={order}
             />
           )}
@@ -128,4 +169,4 @@ const App = () => {
   )
 }
 
-export default App
+export default withRouter(App)
