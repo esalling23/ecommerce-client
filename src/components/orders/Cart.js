@@ -22,10 +22,26 @@ const CheckoutButton = styled(Button)`
 `
 
 const CheckoutBackground = styled.div`
-  height: 10em;
-  min-width: 40%;
   border-radius: 0.25em;
   border: 1px solid rgba(0, 0, 0, 0.125);
+  height: 10em;
+  width: 100%;
+
+  @media (max-width: 768px) {
+    min-width: 40%;
+  }
+`
+
+const ViewContainer = styled.div`
+  align-items: flex-end;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+
+  @media (min-width: 768px) {
+    flex-wrap: nowrap;
+  }
 `
 
 const Cart = ({ order, user, msgAlert, completeOrder, history }) => {
@@ -93,8 +109,7 @@ const Cart = ({ order, user, msgAlert, completeOrder, history }) => {
 
   return (
     <>
-      <h2 className="ps-2">Current Cart:</h2>
-      <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'flex-end' }}>
+      <ViewContainer>
         {order && (
           <>
             <Order products={order.products} total={total}/>
@@ -108,7 +123,7 @@ const Cart = ({ order, user, msgAlert, completeOrder, history }) => {
             </CheckoutForm>
           </CheckoutBackground>
         )}
-      </div>
+      </ViewContainer>
     </>
   )
 }

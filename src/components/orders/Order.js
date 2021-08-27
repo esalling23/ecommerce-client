@@ -4,6 +4,8 @@ import styled from 'styled-components'
 import ListGroup from 'react-bootstrap/ListGroup'
 
 const StyledOrder = styled.div`
+  width: 100%;
+
   @media (min-width: 768px) {
     min-width: 40%;
   }
@@ -11,6 +13,7 @@ const StyledOrder = styled.div`
 
 const Order = ({ total, products }) => (
   <StyledOrder className="p-2">
+    <h2>Current Cart:</h2>
     {products.length > 0
       ? (<ListGroup>
         {products.map((product, i) => (
