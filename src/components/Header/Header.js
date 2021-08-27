@@ -25,7 +25,7 @@ const alwaysOptions = (
 )
 
 const Header = ({ user }) => (
-  <Navbar bg='primary' variant='dark' expand='md'>
+  <Navbar style={{ padding: '0.5em 1em' }} bg='primary' variant='dark' expand='md'>
     <Navbar.Brand>
       <Link to='/' className="brand">Buy Things</Link>
     </Navbar.Brand>
