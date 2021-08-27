@@ -6,19 +6,24 @@ import ProductComponent from './Product'
 import { updateOrder } from '../../api/orders'
 import { indexProducts } from '../../api/products'
 
-import Container from 'react-bootstrap/Container'
-
-const ProductList = styled(Container)`
+const ProductList = styled.div`
   align-items: center;
   display: flex;
   flex-flow: row wrap;
   justify-content: space-between;
-  margin: 2rem 0;
+  margin: 2rem auto;
+  width: 80%;
 
   &:after {
     content: "";
     flex-basis: 24%;
     flex-grow: 0;
+  }
+
+  @media (max-width: 768px) {
+    &:after {
+      flex-basis: 49%;
+    }
   }
 `
 
@@ -67,7 +72,7 @@ const ProductListComponent = ({ order, setOrder, user, msgAlert, history }) => {
   }
 
   return (
-    <ProductList fluid>
+    <ProductList>
       {products
         ? products.map(product =>
           <ProductComponent
