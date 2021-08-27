@@ -6,16 +6,25 @@ $info:  #9DAAF2;
 $background: white;
 
 @import '~bootstrap/scss/bootstrap';
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@400;600&family=Fredoka+One&display=swap');
+
 body {
   background: $background;
+  font-family: 'Raleway', sans-serif;
 }
+
 .brand {
   color: $secondary;
+  font-family: 'Fredoka One', cursive;
   text-decoration: none;
 
   &:hover, &:focus {
     color: darken($secondary, 20%);
   }
+}
+
+.btn {
+  font-family: 'Fredoka One', cursive;
 }
 
 // Color background classes
