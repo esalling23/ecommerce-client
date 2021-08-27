@@ -1,10 +1,31 @@
 import React, { useState, useEffect } from 'react'
+import styled from 'styled-components'
 import { withRouter } from 'react-router-dom'
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js'
 
 import Order from './Order'
+import Button from '../styled/Buttons'
 import { paymentIntent } from '../../api/stripe'
 import { checkoutOrder } from '../../api/orders'
+
+import Form from 'react-bootstrap/Form'
+
+const CheckoutForm = styled(Form)`
+  min-height: 100%;
+  position: relative;
+`
+
+const CheckoutButton = styled(Button)`
+  bottom: 0px;
+  position: absolute;
+  width: 100%;
+`
+
+const CheckoutBackground = styled.div`
+  min-width: 40%;
+  border-radius: 0.25em;
+  border: 1px solid rgba(0, 0, 0, 0.125)
+`
 
 const Cart = ({ order, user, msgAlert, completeOrder, history }) => {
   const [clientSecret, setClientSecret] = useState(null)
@@ -67,14 +88,22 @@ const Cart = ({ order, user, msgAlert, completeOrder, history }) => {
 
   return (
     <>
-      <h2>Current Cart:</h2>
+      <h2 className="ps-2">Current Cart:</h2>
+      <div style={{ display: 'flex', flexDirection: 'row' }}>
       {order && (
+          <>
         <Order products={order.products} />
+          </>
       )}
-      {clientSecret && <form onSubmit={handleCheckout}>
-        <CardElement/>
-        <button>Checkout</button>
-      </form>}
+        {clientSecret && (
+          <CheckoutBackground className="bg-accent m-2 p-3">
+            <CheckoutForm onSubmit={handleCheckout}>
+              <CardElement />
+              <CheckoutButton type="submit">Checkout</CheckoutButton>
+            </CheckoutForm>
+          </CheckoutBackground>
+        )}
+      </div>
     </>
   )
 }
