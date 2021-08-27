@@ -5,7 +5,7 @@ import { signUp, signIn } from '../../api/auth'
 import { signUpSuccess, signUpFailure } from '../AutoDismissAlert/messages'
 
 import Form from 'react-bootstrap/Form'
-import Button from 'react-bootstrap/Button'
+import Button from '../styled/Buttons'
 
 class SignUp extends Component {
   constructor (props) {

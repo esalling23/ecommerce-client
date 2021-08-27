@@ -5,7 +5,7 @@ import { changePassword } from '../../api/auth'
 import { changePasswordSuccess, changePasswordFailure } from '../AutoDismissAlert/messages'
 
 import Form from 'react-bootstrap/Form'
-import Button from 'react-bootstrap/Button'
+import Button from '../styled/Buttons'
 
 class ChangePassword extends Component {
   constructor (props) {

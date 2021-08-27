@@ -5,7 +5,7 @@ import { signIn } from '../../api/auth'
 import { signInSuccess, signInFailure } from '../AutoDismissAlert/messages'
 
 import Form from 'react-bootstrap/Form'
-import Button from 'react-bootstrap/Button'
+import Button from '../styled/Buttons'
 
 class SignIn extends Component {
   constructor (props) {
