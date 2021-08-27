@@ -26,7 +26,7 @@ const MainContainer = styled(Container)`
   margin-top: 2rem;
 `
 
-const App = () => {
+const App = ({ history }) => {
   const [user, setUserState] = useState(null)
   const [msgAlerts, setMsgAlerts] = useState([])
   const [order, setOrder] = useState(null)
