@@ -1,4 +1,5 @@
 import React, { useState, useEffect, Fragment } from 'react'
+import styled from 'styled-components'
 import { Elements } from '@stripe/react-stripe-js'
 import { loadStripe } from '@stripe/stripe-js'
 import { Route } from 'react-router-dom'
@@ -14,9 +15,13 @@ import ChangePassword from './components/auth/ChangePassword'
 import Cart from './components/orders/Cart'
 import ProductListComponent from './components/products/ProductList'
 
-import { createOrder } from './api/orders'
+import Container from 'react-bootstrap/Container'
 
 const stripePromise = loadStripe('pk_test_51HtHLTIILRHGeAn02ibfcqyDtGe4EAD0Qubsd3jPzOrIg5fnYSwaMDNDHaDsUx3XQZUgbq67UhLraMjpOQIWXfex0064HXxmqF')
+
+const MainContainer = styled(Container)`
+  margin-top: 2rem;
+`
 
 const App = () => {
   const [user, setUserState] = useState(null)
@@ -66,7 +71,7 @@ const App = () => {
           deleteAlert={deleteAlert}
         />
       ))}
-      <main className='container'>
+      <MainContainer fluid>
         <Route
           path='/sign-up'
           render={() => (
@@ -118,7 +123,7 @@ const App = () => {
             />
           )}
         />
-      </main>
+      </MainContainer>
     </Fragment>
   )
 }
