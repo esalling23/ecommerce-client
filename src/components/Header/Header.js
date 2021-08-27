@@ -3,11 +3,12 @@ import Nav from 'react-bootstrap/Nav'
 import Navbar from 'react-bootstrap/Navbar'
 import { Link, NavLink } from 'react-router-dom'
 
+import CartHoverIcon from '../shared/CartHoverIcon'
+
 const authenticatedOptions = (
   <Fragment>
-    <NavLink to='/cart' className='nav-link'>View Cart</NavLink>
-    <NavLink to='/change-password' className='nav-link'>Change Password</NavLink>
-    <NavLink to='/sign-out' className='nav-link'>Sign Out</NavLink>
+    <NavLink to='/cart' className='nav-link cart-hover'><CartHoverIcon/></NavLink>
+    <NavLink to='/account' className='nav-link'>Account</NavLink>
   </Fragment>
 )
 

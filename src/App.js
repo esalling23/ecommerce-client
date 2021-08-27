@@ -11,7 +11,7 @@ import Header from './components/Header/Header'
 import SignUp from './components/auth/SignUp'
 import SignIn from './components/auth/SignIn'
 import SignOut from './components/auth/SignOut'
-import ChangePassword from './components/auth/ChangePassword'
+import Account from './components/auth/Account'
 import Cart from './components/orders/Cart'
 import ProductListComponent from './components/products/ProductList'
 import ProductPage from './components/products/ProductPage'
@@ -126,9 +126,9 @@ const App = ({ history }) => {
         />
         <AuthenticatedRoute
           user={user}
-          path='/change-password'
+          path='/account'
           render={() => (
-            <ChangePassword msgAlert={msgAlert} user={user} />
+            <Account msgAlert={msgAlert} user={user} />
           )}
         />
         <AuthenticatedRoute
