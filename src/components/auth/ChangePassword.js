@@ -38,7 +38,7 @@ const ChangePassword = ({ msgAlert, history, user }) => {
 
   return (
     <>
-      <h3>Change Password</h3>
+      <h5>Change Password</h5>
       <Form onSubmit={onChangePassword}>
         <Form.Group controlId='oldPassword'>
           <Form.Label>Old password</Form.Label>
