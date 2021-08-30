@@ -1,6 +1,19 @@
 import axios from 'axios'
 import apiUrl from '../apiConfig'
 
+export const indexOrders = (user, completed = false) => {
+  let url = apiUrl + '/orders'
+  if (completed) {
+    url += '?completed=true'
+  }
+  return axios({
+    url,
+    headers: {
+      Authorization: `Bearer ${user.token}`
+    }
+  })
+}
+
 export const createOrder = (user) => {
   return axios({
     url: apiUrl + '/orders',
