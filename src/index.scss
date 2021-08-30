@@ -4,6 +4,7 @@ $accent: #F4DB7D;
 $warning: $accent;
 $info:  #9DAAF2;
 $background: white;
+$translucent: rgba(0, 0, 0, 0.125);
 
 @import '~bootstrap/scss/bootstrap';
 @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@400;600&family=Fredoka+One&display=swap');
@@ -22,6 +23,15 @@ body {
     color: darken($secondary, 20%);
   }
 }
+
+.order-price {
+  margin-left: auto;
+}
+
+span.order-price {
+  float: right;
+}
+
 
 .btn {
   font-family: 'Fredoka One', cursive;
@@ -47,4 +57,10 @@ body {
 // text classes
 .text-display {
   font-family: 'Fredoka One', cursive;
+}
+
+// border classes
+.border-soft {
+  border: 1px solid $translucent;
+  border-radius: 0.25em;
 }
