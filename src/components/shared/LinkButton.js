@@ -2,6 +2,7 @@
 // unclear if this is an accessible solution, see https://stackoverflow.com/a/58846293/15835070
 import React from 'react'
 import { withRouter } from 'react-router'
+import Button from 'react-bootstrap/Button'
 
 const LinkButton = ({
   history,
@@ -14,7 +15,7 @@ const LinkButton = ({
   ...rest
 }) => {
   return (
-    <button
+    <Button
       {...rest} // `children` is just another prop!
       onClick={(event) => {
         onClick && onClick(event)
