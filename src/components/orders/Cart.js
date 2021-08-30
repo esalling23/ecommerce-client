@@ -114,10 +114,10 @@ const Cart = ({ order, user, msgAlert, completeOrder, history }) => {
       <ViewContainer>
         {order && (
           <>
+            {order.products.length > 0
+              ? (
+                <>
             <Order products={order.products} total={total}/>
-          </>
-        )}
-
         <CheckoutBackground variant="accent" className="m-2 p-3">
           {clientSecret
             ? (<CheckoutForm onSubmit={handleCheckout}>
@@ -129,6 +129,12 @@ const Cart = ({ order, user, msgAlert, completeOrder, history }) => {
             </Spinner>)
           }
         </CheckoutBackground>
+                </>
+              )
+              : 'No items in cart - get to shopping!'
+            }
+          </>
+        )}
       </ViewContainer>
     </>
   )
