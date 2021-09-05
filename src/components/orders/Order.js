@@ -4,6 +4,8 @@ import styled from 'styled-components'
 import ListGroup from 'react-bootstrap/ListGroup'
 import Link from '../styled/Links'
 
+import CountForm from '../shared/CountForm'
+
 const StyledOrder = styled.div`
   width: 100%;
 
@@ -22,7 +24,12 @@ const Order = ({ total, products, removeFromCart, updateProductInCart }) => {
           key={i}
           variant='info'
         >
-          <span>{productRef.title} - ${productRef.price} x {count}</span>
+            <span>{productRef.title} - ${productRef.price} each</span>
+            <CountForm
+              prodId={productRef._id}
+              count={count}
+              updateProductInCart={updateProductInCart}
+            />
           <span className="order-price">${(parseFloat(productRef.price) * count).toFixed(2)}</span>
         </ListGroup.Item>
       ))}
