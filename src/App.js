@@ -51,7 +51,7 @@ const App = ({ history }) => {
     setMsgAlerts(alerts => [...alerts, { heading, message, variant, id }])
   }
 
-  const addToCart = (prodId) => {
+  const addToCart = (prodId, count) => {
     // if no order or user, send user to sign in
     if (!order || !user) {
       history.push('/sign-in')

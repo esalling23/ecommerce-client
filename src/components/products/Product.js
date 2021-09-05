@@ -37,7 +37,7 @@ const ProductComponent = ({ id, title, price, addToCart }) => {
         <Card.Title style={{ marginTop: '0.5em' }}>{title}</Card.Title>
       </Link>
       <Card.Text>${price}</Card.Text>
-      <AddToCartButton onClick={() => addToCart(id)}>Add to cart</AddToCartButton>
+      <AddToCartButton onClick={() => addToCart(id, 1)}>Add to cart</AddToCartButton>
     </ProductCard>
   )
 }
