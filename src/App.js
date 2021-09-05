@@ -184,7 +184,14 @@ const App = ({ history }) => {
           path='/cart'
           render={() => (
             <Elements stripe={stripePromise}>
-              <Cart msgAlert={msgAlert} user={user} order={order} completeOrder={getCreateOrder}/>
+              <Cart
+                msgAlert={msgAlert}
+                user={user}
+                order={order}
+                completeOrder={getCreateOrder}
+                removeFromCart={removeFromCart}
+                updateProductInCart={updateProductInCart}
+              />
             </Elements>
           )}
         />

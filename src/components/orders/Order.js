@@ -12,7 +12,8 @@ const StyledOrder = styled.div`
   }
 `
 
-const Order = ({ total, products }) => (
+const Order = ({ total, products, removeFromCart, updateProductInCart }) => {
+  return (
   <StyledOrder className="p-2">
     <h2>Current Cart:</h2>
     <ListGroup>
@@ -29,5 +30,6 @@ const Order = ({ total, products }) => (
     </ListGroup>
   </StyledOrder>
 )
+}
 
 export default Order

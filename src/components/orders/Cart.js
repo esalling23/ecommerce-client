@@ -46,7 +46,15 @@ const ViewContainer = styled.div`
   }
 `
 
-const Cart = ({ order, user, msgAlert, completeOrder, history }) => {
+const Cart = ({
+  order,
+  user,
+  msgAlert,
+  completeOrder,
+  history,
+  removeFromCart,
+  updateProductInCart
+}) => {
   const [clientSecret, setClientSecret] = useState(null)
   const [total, setTotal] = useState(0)
   const stripe = useStripe()
@@ -117,7 +125,12 @@ const Cart = ({ order, user, msgAlert, completeOrder, history }) => {
             {order.products.length > 0
               ? (
                 <>
-            <Order products={order.products} total={total}/>
+                  <Order
+                    products={order.products}
+                    total={total}
+                    removeFromCart={removeFromCart}
+                    updateProductInCart={updateProductInCart}
+                  />
         <CheckoutBackground variant="accent" className="m-2 p-3">
           {clientSecret
             ? (<CheckoutForm onSubmit={handleCheckout}>
