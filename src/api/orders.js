@@ -25,10 +25,32 @@ export const createOrder = (user) => {
   })
 }
 
-export const updateOrder = (orderId, productId, user) => {
+export const addProductOrder = (orderId, productId, count, user) => {
   return axios({
-    url: apiUrl + '/orders/' + orderId,
+    url: `${apiUrl}/orders/${orderId}/products`,
+    method: 'post',
+    data: { productId, count },
+    headers: {
+      Authorization: `Bearer ${user.token}`
+    }
+  })
+}
+
+export const updateProductOrder = (orderId, productId, count, user) => {
+  return axios({
+    url: `${apiUrl}/orders/${orderId}/products`,
     method: 'patch',
+    data: { productId, count },
+    headers: {
+      Authorization: `Bearer ${user.token}`
+    }
+  })
+}
+
+export const removeProductOrder = (orderId, productId, user) => {
+  return axios({
+    url: `${apiUrl}/orders/${orderId}/products`,
+    method: 'delete',
     data: { productId },
     headers: {
       Authorization: `Bearer ${user.token}`
