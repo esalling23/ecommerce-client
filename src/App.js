@@ -18,7 +18,7 @@ import ProductPage from './components/products/ProductPage'
 
 import Container from 'react-bootstrap/Container'
 
-import { createOrder, updateOrder } from './api/orders'
+import { createOrder, addProductOrder, removeProductOrder, updateProductOrder } from './api/orders'
 
 const stripePromise = loadStripe('pk_test_51HtHLTIILRHGeAn02ibfcqyDtGe4EAD0Qubsd3jPzOrIg5fnYSwaMDNDHaDsUx3XQZUgbq67UhLraMjpOQIWXfex0064HXxmqF')
 
@@ -63,7 +63,7 @@ const App = ({ history }) => {
       return
     }
 
-    updateOrder(order._id, prodId, user)
+    addProductOrder(order._id, prodId, count, user)
       .then(res => setOrder(res.data.order))
       .then(() => msgAlert({
         heading: 'Added product to the cart',
@@ -75,6 +75,54 @@ const App = ({ history }) => {
         message: 'Something went wrong: ' + err.message,
         variant: 'danger'
       }))
+  }
+
+  const removeFromCart = (prodId) => {
+    if (signInFirst()) return
+
+    removeProductOrder(order._id, prodId, user)
+      .then(res => setOrder(res.data.order))
+      .then(() => msgAlert({
+        heading: 'Product successfully removed from cart',
+        message: 'Better replace it with something else ;)',
+        variant: 'success'
+      }))
+      .catch(err => msgAlert({
+        heading: 'Product not removed from cart',
+        message: 'Something went wrong: ' + err.message,
+        variant: 'danger'
+      }))
+  }
+
+  const updateProductInCart = (prodId, data) => {
+    if (signInFirst()) return
+
+    updateProductOrder(order._id, prodId, data, user)
+      .then(res => setOrder(res.data.order))
+      .then(() => msgAlert({
+        heading: 'Product count successfully updated',
+        message: 'Hope you got more!',
+        variant: 'success'
+      }))
+      .catch(err => msgAlert({
+        heading: 'Product count not updated',
+        message: 'Something went wrong: ' + err.message,
+        variant: 'danger'
+      }))
+  }
+
+  const signInFirst = () => {
+    if (!order) {
+      history.push('/sign-in')
+      msgAlert({
+        heading: 'Please sign in',
+        message: 'Login or create an account first',
+        variant: 'info'
+      })
+      return true
+    }
+
+    return false
   }
 
   const getCreateOrder = () => {
