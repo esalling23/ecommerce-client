@@ -73,7 +73,7 @@ const Cart = ({
           variant: 'danger'
         }))
     }
-  }, [])
+  }, [order])
 
   const paymentError = (error) => {
     msgAlert({
@@ -131,17 +131,17 @@ const Cart = ({
                     removeFromCart={removeFromCart}
                     updateProductInCart={updateProductInCart}
                   />
-        <CheckoutBackground variant="accent" className="m-2 p-3">
-          {clientSecret
-            ? (<CheckoutForm onSubmit={handleCheckout}>
-              <CardElement />
-              <CheckoutButton type="submit">Checkout</CheckoutButton>
-            </CheckoutForm>)
-            : (<Spinner animation="border" role="status">
-              <span className="visually-hidden">Loading...</span>
-            </Spinner>)
-          }
-        </CheckoutBackground>
+                  <CheckoutBackground variant="accent" className="m-2 p-3">
+                    {clientSecret
+                      ? (<CheckoutForm onSubmit={handleCheckout}>
+                        <CardElement />
+                        <CheckoutButton type="submit">Checkout</CheckoutButton>
+                      </CheckoutForm>)
+                      : (<Spinner animation="border" role="status">
+                        <span className="visually-hidden">Loading...</span>
+                      </Spinner>)
+                    }
+                  </CheckoutBackground>
                 </>
               )
               : 'No items in cart - get to shopping!'
