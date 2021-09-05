@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 
-import ProductComponent from './Product'
+import Product from './Product'
 import { indexProducts } from '../../api/products'
 
 const ProductList = styled.div`
@@ -47,7 +47,7 @@ const ProductListComponent = ({ addToCart, msgAlert }) => {
     <ProductList>
       {products
         ? products.map(product =>
-          <ProductComponent
+          <Product
             key={product._id}
             id={product._id}
             title={product.title}

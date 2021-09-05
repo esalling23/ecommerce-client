@@ -26,7 +26,7 @@ const ProductCard = styled(Card)`
   }
 `
 
-const ProductComponent = ({ id, title, price, addToCart }) => {
+const Product = ({ id, title, price, addToCart }) => {
   return (
     <ProductCard>
       <Link to={`/details/${id}`}>
@@ -42,4 +42,4 @@ const ProductComponent = ({ id, title, price, addToCart }) => {
   )
 }
 
-export default ProductComponent
+export default Product
