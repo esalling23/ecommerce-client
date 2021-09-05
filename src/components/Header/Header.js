@@ -7,7 +7,13 @@ import CartHoverIcon from '../shared/CartHoverIcon'
 
 const authenticatedOptions = (
   <Fragment>
-    <NavLink to='/cart' className='nav-link cart-hover'><CartHoverIcon/></NavLink>
+    <NavLink
+      to='/cart'
+      className='nav-link cart-hover'
+      style={{
+        minHeight: '2.5em'
+      }}
+    ><CartHoverIcon/></NavLink>
     <NavLink to='/account' className='nav-link'>Account</NavLink>
   </Fragment>
 )
