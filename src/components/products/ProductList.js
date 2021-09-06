@@ -4,8 +4,10 @@ import styled from 'styled-components'
 import Product from './Product'
 import { indexProducts } from '../../api/products'
 
+const GRID_SIZE = 4
+
 const ProductList = styled.div`
-  align-items: center;
+  align-items: stretch;
   display: flex;
   flex-flow: row wrap;
   justify-content: space-between;
@@ -14,14 +16,8 @@ const ProductList = styled.div`
 
   &:after {
     content: "";
-    flex-basis: 24%;
+    flex-basis: ${props => (GRID_SIZE - (props.listLen % GRID_SIZE)) * 24}%;
     flex-grow: 0;
-  }
-
-  @media (max-width: 768px) {
-    &:after {
-      flex-basis: 49%;
-    }
   }
 `
 
@@ -44,19 +40,24 @@ const ProductListComponent = ({ addToCart, msgAlert }) => {
   }, [])
 
   return (
-    <ProductList>
+    <>
       {products
-        ? products.map(product =>
-          <Product
-            key={product._id}
-            id={product._id}
-            title={product.title}
-            price={product.price}
-            addToCart={addToCart}
-          />
-        )
-        : 'Loading...'}
-    </ProductList>
+        ? products.length === 0
+          ? <p className="text-center">Sorry... looks like we&apos;re out of stock of everything.</p>
+          : <ProductList listLen={products ? products.length : 0}>
+            {products.map(product =>
+              <Product
+                key={product._id}
+                id={product._id}
+                title={product.title}
+                price={product.price}
+                image={product.image}
+                addToCart={addToCart}
+              />
+            )}
+          </ProductList>
+        : <p className="text-center">Loading...</p>}
+    </>
   )
 }
 

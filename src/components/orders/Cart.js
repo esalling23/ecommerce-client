@@ -14,19 +14,20 @@ import { checkoutOrder } from '../../api/orders'
 import Form from 'react-bootstrap/Form'
 
 const CheckoutForm = styled(Form)`
+  align-items: stretch;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   min-height: 100%;
   position: relative;
   width: 100%;
 `
 
 const CheckoutButton = styled(Button)`
-  bottom: 0px;
-  position: absolute;
-  width: 100%;
+  // width: 100%;
 `
 
 const CheckoutBackground = styled(ColoredPanel)`
-  height: 10em;
   width: 100%;
 
   @media (max-width: 768px) {
@@ -135,6 +136,9 @@ const Cart = ({
                     {clientSecret
                       ? (<CheckoutForm onSubmit={handleCheckout}>
                         <CardElement />
+                        <Form.Text className="text-muted my-2">
+                          This is a dummy application. Do not enter real information.<br/> Use test card number <code>4242 4242 4242 4242</code>, any future expiration date, and any numbers for CVC and postal code.
+                        </Form.Text>
                         <CheckoutButton type="submit">Checkout</CheckoutButton>
                       </CheckoutForm>)
                       : (<Spinner animation="border" role="status">

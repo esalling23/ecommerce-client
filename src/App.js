@@ -148,7 +148,7 @@ const App = ({ history }) => {
           deleteAlert={deleteAlert}
         />
       ))}
-      <MainContainer fluid>
+      <MainContainer fluid className="mb-5">
         <Route
           path='/sign-up'
           render={() => (
