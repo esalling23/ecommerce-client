@@ -5,6 +5,8 @@ import styled from 'styled-components'
 import { AddToCartButton } from '../styled/Buttons'
 import Card from 'react-bootstrap/Card'
 
+const dummyImage = 'https://res.cloudinary.com/esalling/image/upload/v1630877341/BuyThings/noimage.jpg'
+
 const ProductCard = styled(Card)`
   display: flex;
   justify-content: flex-end;
@@ -27,7 +29,7 @@ const ProductCard = styled(Card)`
   }
 `
 
-const Product = ({ id, title, price, addToCart }) => {
+const Product = ({ id, title, price, image, addToCart }) => {
   return (
     <ProductCard>
       <Link to={`/details/${id}`} className="d-flex" style={{
@@ -36,10 +38,10 @@ const Product = ({ id, title, price, addToCart }) => {
         justifyContent: 'space-between'
       }}>
         <div style={{ height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-        <Card.Img
-          variant="top"
-          src="https://res.cloudinary.com/esalling/image/upload/v1518704988/few_dots.jpg"
-        />
+          <Card.Img
+            variant="top"
+            src={image || dummyImage}
+          />
         </div>
         <Card.Title style={{ marginTop: '0.5em' }}>{title}</Card.Title>
       </Link>
