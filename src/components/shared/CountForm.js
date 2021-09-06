@@ -38,7 +38,7 @@ const CountForm = ({ prodId, count, updateProductInCart }) => {
     <CountFormStyled
       onSubmit={event => {
         event.preventDefault()
-        updateProductInCart(prodId, tempCount)
+        updateProductInCart(prodId, tempCount || count)
       }}
     >
       <CountInput
