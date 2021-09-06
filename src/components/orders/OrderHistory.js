@@ -21,7 +21,7 @@ const OrderHistory = ({ msgAlert, user }) => {
   }, [])
 
   if (orders === null) {
-    return 'loading...'
+    return 'Loading...'
   } else if (orders.length === 0) {
     return 'No orders to display - get shopping!'
   }
@@ -29,7 +29,7 @@ const OrderHistory = ({ msgAlert, user }) => {
   return (
     <ul>
       {orders.map(order => (
-        <li key={order._id}>{order.products.length} items - ${order.totalPrice}</li>
+        <li key={order._id}>{order.products.reduce((a, c) => a + c.count, 0)} items - ${order.totalPrice}</li>
       ))}
     </ul>
   )
