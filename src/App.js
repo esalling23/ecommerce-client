@@ -19,6 +19,7 @@ import ProductPage from './components/products/ProductPage'
 import Container from 'react-bootstrap/Container'
 
 import { createOrder, addProductOrder, removeProductOrder, updateProductOrder } from './api/orders'
+import { getUserSession } from './api/auth'
 
 const stripePromise = loadStripe('pk_test_51HtHLTIILRHGeAn02ibfcqyDtGe4EAD0Qubsd3jPzOrIg5fnYSwaMDNDHaDsUx3XQZUgbq67UhLraMjpOQIWXfex0064HXxmqF')
 
@@ -35,12 +36,25 @@ const App = ({ history }) => {
     if (user) {
       // user sign in, get current order
       getCreateOrder()
+    } else {
+      const userCookie = window.localStorage.getItem('token')
+      if (userCookie) {
+        getUserSession(userCookie)
+          .then(res => setUser(res.data.user))
+          .catch(e => clearUser())
+      }
     }
   }, [user])
 
-  const setUser = (user) => setUserState(user)
+  const setUser = (user) => {
+    window.localStorage.setItem('token', user.token)
+    setUserState(user)
+  }
 
-  const clearUser = () => setUserState(null)
+  const clearUser = () => {
+    window.localStorage.setItem('token', null)
+    setUserState(null)
+  }
 
   const deleteAlert = (id) => {
     setMsgAlerts(alerts => alerts.filter((msg) => msg.id !== id))

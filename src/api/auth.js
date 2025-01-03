@@ -1,6 +1,22 @@
 import apiUrl from '../apiConfig'
 import axios from 'axios'
 
+export const getUser = (id) => {
+  return axios({
+    method: 'GET',
+    url: apiUrl + '/auth/' + id
+  })
+}
+export const getUserSession = (token) => {
+  return axios({
+    method: 'GET',
+    url: apiUrl + '/auth/session',
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  })
+}
+
 export const signUp = (credentials) => {
   return axios({
     method: 'POST',

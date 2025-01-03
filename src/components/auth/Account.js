@@ -14,7 +14,6 @@ import Nav from 'react-bootstrap/Nav'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 
-// import LinkButton from '../shared/LinkButton'
 import ChangePassword from './ChangePassword'
 
 const TabLink = styled(Nav.Link)`
@@ -26,14 +25,11 @@ const TabLink = styled(Nav.Link)`
   }
 `
 
-// For some reason Tab.Container won't recognize my styles (it's a fluid container)
-// Using a wrapper component instead
 const TabContainer = styled.div`
-  margin: 0 auto;
-
-  @media (min-width: 768px) {
-    width: 80%;
-  }
+  width: 100%;
+  height: 60vh;
+  min-height: 600px;
+  padding: 0 2rem;
 `
 
 // Contains change password, sign out, order history, preferences...
@@ -41,11 +37,11 @@ const Account = (props) => {
   return (
     <TabContainer>
       <Tab.Container className="border-soft" defaultActiveKey="settings">
-        <Row>
-          <Col className="mt-5" sm={3} style={{ borderRight: `1px solid ${light}` }}>
+        <Row className="h-100">
+          <Col className="" sm={3} style={{ borderRight: `1px solid ${light}` }}>
             <Nav variant="pills" className="flex-column">
               <Nav.Item>
-                <TabLink eventKey="settings">Account Setting</TabLink>
+                <TabLink eventKey="settings">Account Settings</TabLink>
               </Nav.Item>
               <Nav.Item>
                 <TabLink
@@ -57,13 +53,15 @@ const Account = (props) => {
               </Nav.Item>
             </Nav>
           </Col>
-          <Col className="mt-5" sm={9}>
+          <Col className="bg-info p-4 rounded-2" sm={9}>
             <Tab.Content>
               <Tab.Pane eventKey="settings">
                 <>
                   <h4>Update your data:</h4>
                   <hr/>
-                  <ChangePassword/>
+                  <ChangePassword
+                    {...props}
+                  />
                 </>
               </Tab.Pane>
               <Tab.Pane eventKey="orderHistory">
