@@ -24,7 +24,7 @@ const CheckoutForm = styled(Form)`
 `
 
 const CheckoutButton = styled(Button)`
-  // width: 100%;
+
 `
 
 const CheckoutBackground = styled(ColoredPanel)`
@@ -107,7 +107,7 @@ const Cart = ({
       checkoutOrder(order._id, user)
         .then(res => {
           completeOrder()
-          history.push('/')
+          history.push('/order/confirmation')
           msgAlert({
             heading: 'Payment success',
             message: 'Thanks for the money ;) Buy more things now',

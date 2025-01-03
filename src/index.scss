@@ -26,6 +26,7 @@ body {
 
 .order-price {
   margin-left: auto;
+  font-weight: 800;
 }
 
 span.order-price {
@@ -63,4 +64,11 @@ span.order-price {
 .border-soft {
   border: 1px solid $translucent;
   border-radius: 0.25em;
+}
+
+.flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
 }

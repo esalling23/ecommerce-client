@@ -19,6 +19,7 @@ import ProductPage from './components/products/ProductPage'
 import Container from 'react-bootstrap/Container'
 
 import { createOrder, addProductOrder, removeProductOrder, updateProductOrder } from './api/orders'
+import CheckoutConfirmation from './components/orders/CheckoutConfirmation'
 import { getUserSession } from './api/auth'
 
 const stripePromise = loadStripe('pk_test_51HtHLTIILRHGeAn02ibfcqyDtGe4EAD0Qubsd3jPzOrIg5fnYSwaMDNDHaDsUx3XQZUgbq67UhLraMjpOQIWXfex0064HXxmqF')
@@ -202,6 +203,7 @@ const App = ({ history }) => {
           path='/cart'
           render={() => (
             <Elements stripe={stripePromise}>
+              <h2>Current Cart:</h2>
               <Cart
                 msgAlert={msgAlert}
                 user={user}
@@ -211,6 +213,17 @@ const App = ({ history }) => {
                 updateProductInCart={updateProductInCart}
               />
             </Elements>
+          )}
+        />
+        <AuthenticatedRoute
+          user={user}
+          path='/order/confirmation'
+          render={() => (
+            <CheckoutConfirmation
+              msgAlert={msgAlert}
+              user={user}
+              order={order}
+            />
           )}
         />
         <Route

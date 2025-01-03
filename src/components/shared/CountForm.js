@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 
 import styled from 'styled-components'
 
@@ -15,39 +15,15 @@ const CountInput = styled(FormControl)`
   display: inline;
 `
 
-const SubmitCountBtn = styled.button`
-  border: 0;
-  background: transparent;
-  text-decoration: underline;
-
-  &:hover, &:focus {
-    font-weight: 800;
-  }
-`
-
 const CountForm = ({ prodId, count, updateProductInCart }) => {
-  const [tempCount, setTempCount] = useState(0)
-
-  useEffect(() => {
-    if (tempCount) {
-      setTempCount(0)
-    }
-  }, [count])
-
   return (
-    <CountFormStyled
-      onSubmit={event => {
-        event.preventDefault()
-        updateProductInCart(prodId, tempCount || count)
-      }}
-    >
+    <CountFormStyled>
       <CountInput
-        onChange={event => setTempCount(event.target.value)}
+        onChange={event => updateProductInCart(prodId, event.target.value || count)}
         type="number"
         size="sm"
-        value={tempCount || count}
+        value={count}
       />
-      <SubmitCountBtn type="submit">Update</SubmitCountBtn>
     </CountFormStyled>
   )
 }
