@@ -10,30 +10,32 @@ const ChangePassword = ({ msgAlert, history, user }) => {
   const [formData, setFormData] = useState({ oldPassword: '', newPassword: '' })
 
   const handleChange = (event) =>
-    setFormData({
+    setFormData(curr => ({
+      ...curr,
       [event.target.name]: event.target.value
-    })
+    }))
+
+  const clearForm = () => setFormData({ oldPassword: '', newPassword: '' })
 
   const onChangePassword = (event) => {
     event.preventDefault()
 
     changePassword(formData, user)
-      .then(() =>
+      .then(() => {
         msgAlert({
           heading: 'Change Password Success',
           message: changePasswordSuccess,
           variant: 'success'
         })
-      )
-      .then(() => history.push('/'))
+      })
       .catch((error) => {
-        setFormData({ oldPassword: '', newPassword: '' })
         msgAlert({
           heading: 'Change Password Failed with error: ' + error.message,
           message: changePasswordFailure,
           variant: 'danger'
         })
       })
+      .finally(clearForm)
   }
 
   return (
