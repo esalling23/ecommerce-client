@@ -190,7 +190,11 @@ const App = ({ history }) => {
           user={user}
           path='/account'
           render={() => (
-            <Account msgAlert={msgAlert} user={user} />
+            <Account
+              msgAlert={msgAlert}
+              user={user}
+              history={history}
+            />
           )}
         />
         <AuthenticatedRoute
