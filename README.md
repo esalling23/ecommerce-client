@@ -1,6 +1,6 @@
 # E-commerce Client
 
-ReactJS client
+Sample ecommerce website powered with Stripe
 
 ## User Stories
 
