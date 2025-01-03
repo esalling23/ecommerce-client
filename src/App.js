@@ -21,6 +21,7 @@ import Container from 'react-bootstrap/Container'
 import { createOrder, addProductOrder, removeProductOrder, updateProductOrder } from './api/orders'
 import CheckoutConfirmation from './components/orders/CheckoutConfirmation'
 import { getUserSession } from './api/auth'
+import handleBadCreds from './lib/handleBadCreds'
 
 const stripePromise = loadStripe('pk_test_51HtHLTIILRHGeAn02ibfcqyDtGe4EAD0Qubsd3jPzOrIg5fnYSwaMDNDHaDsUx3XQZUgbq67UhLraMjpOQIWXfex0064HXxmqF')
 
@@ -85,11 +86,14 @@ const App = ({ history }) => {
         message: 'Check out your cart to see the product',
         variant: 'success'
       }))
-      .catch(err => msgAlert({
-        heading: 'Could not add product to the cart',
-        message: 'Something went wrong: ' + err.message,
-        variant: 'danger'
-      }))
+      .catch(err => {
+        handleBadCreds(err, history, clearUser)
+        msgAlert({
+          heading: 'Could not add product to the cart',
+          message: 'Something went wrong: ' + err.message,
+          variant: 'danger'
+        })
+      })
   }
 
   const removeFromCart = (prodId) => {
@@ -102,11 +106,14 @@ const App = ({ history }) => {
         message: 'Better replace it with something else ;)',
         variant: 'success'
       }))
-      .catch(err => msgAlert({
-        heading: 'Product not removed from cart',
-        message: 'Something went wrong: ' + err.message,
-        variant: 'danger'
-      }))
+      .catch(err => {
+        handleBadCreds(err, history, clearUser)
+        msgAlert({
+          heading: 'Product not removed from cart',
+          message: 'Something went wrong: ' + err.message,
+          variant: 'danger'
+        })
+      })
   }
 
   const updateProductInCart = (prodId, data) => {
@@ -119,11 +126,14 @@ const App = ({ history }) => {
         message: 'Hope you got more!',
         variant: 'success'
       }))
-      .catch(err => msgAlert({
-        heading: 'Product count not updated',
-        message: 'Something went wrong: ' + err.message,
-        variant: 'danger'
-      }))
+      .catch(err => {
+        handleBadCreds(err, history, clearUser)
+        msgAlert({
+          heading: 'Product count not updated',
+          message: 'Something went wrong: ' + err.message,
+          variant: 'danger'
+        })
+      })
   }
 
   const signInFirst = () => {
@@ -192,6 +202,7 @@ const App = ({ history }) => {
           path='/account'
           render={() => (
             <Account
+              clearUser={clearUser}
               msgAlert={msgAlert}
               user={user}
               history={history}
@@ -207,6 +218,7 @@ const App = ({ history }) => {
               <Cart
                 msgAlert={msgAlert}
                 user={user}
+                clearUser={clearUser}
                 order={order}
                 completeOrder={getCreateOrder}
                 removeFromCart={removeFromCart}
@@ -223,6 +235,8 @@ const App = ({ history }) => {
               msgAlert={msgAlert}
               user={user}
               order={order}
+              history={history}
+              clearUser={clearUser}
             />
           )}
         />

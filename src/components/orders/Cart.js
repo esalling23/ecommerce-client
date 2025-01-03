@@ -12,6 +12,7 @@ import { paymentIntent } from '../../api/stripe'
 import { checkoutOrder } from '../../api/orders'
 
 import Form from 'react-bootstrap/Form'
+import handleBadCreds from '../../lib/handleBadCreds'
 
 const CheckoutForm = styled(Form)`
   align-items: stretch;
@@ -50,6 +51,7 @@ const ViewContainer = styled.div`
 const Cart = ({
   order,
   user,
+  clearUser,
   msgAlert,
   completeOrder,
   history,
@@ -68,15 +70,19 @@ const Cart = ({
           setClientSecret(res.data.clientSecret)
           setTotal(res.data.totalPrice)
         })
-        .catch(err => msgAlert({
-          heading: 'Payment intent failed',
-          message: 'Something went wrong: ' + err.message,
-          variant: 'danger'
-        }))
+        .catch(err => {
+          handleBadCreds(err, history, clearUser)
+          msgAlert({
+            heading: 'Payment intent failed',
+            message: 'Something went wrong: ' + err.message,
+            variant: 'danger'
+          })
+        })
     }
   }, [order])
 
   const paymentError = (error) => {
+    handleBadCreds(error, history, clearUser)
     msgAlert({
       heading: 'Payment Error',
       message: 'Something went wrong: ' + error.message,

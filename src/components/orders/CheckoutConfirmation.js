@@ -5,6 +5,7 @@ import { withRouter } from 'react-router-dom'
 import Order from './Order'
 import LinkButton from '../shared/LinkButton'
 import { indexOrders } from '../../api/orders'
+import handleBadCreds from '../../lib/handleBadCreds'
 
 const ViewContainer = styled.div`
   align-items: start;
@@ -23,7 +24,8 @@ const ViewContainer = styled.div`
 const CheckoutConfirmation = ({
   user,
   msgAlert,
-  history
+  history,
+  clearUser
 }) => {
   const [recentOrder, setRecentOrder] = useState(null)
 
@@ -35,11 +37,14 @@ const CheckoutConfirmation = ({
         message: 'All completed orders displayed',
         variant: 'success'
       }))
-      .catch(err => msgAlert({
-        heading: 'Order History Failure',
-        message: 'Something went wrong: ' + err.message,
-        variant: 'danger'
-      }))
+      .catch(err => {
+        handleBadCreds(err, history, clearUser)
+        msgAlert({
+          heading: 'Order History Failure',
+          message: 'Something went wrong: ' + err.message,
+          variant: 'danger'
+        })
+      })
   }, [])
   return (
     <>

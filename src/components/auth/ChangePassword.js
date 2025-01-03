@@ -5,8 +5,9 @@ import { changePasswordSuccess, changePasswordFailure } from '../AutoDismissAler
 
 import Form from 'react-bootstrap/Form'
 import Button from '../styled/Buttons'
+import handleBadCreds from '../../lib/handleBadCreds'
 
-const ChangePassword = ({ msgAlert, history, user }) => {
+const ChangePassword = ({ msgAlert, history, clearUser, user }) => {
   const [formData, setFormData] = useState({ oldPassword: '', newPassword: '' })
 
   const handleChange = (event) =>
@@ -29,6 +30,7 @@ const ChangePassword = ({ msgAlert, history, user }) => {
         })
       })
       .catch((error) => {
+        handleBadCreds(error, history, clearUser)
         msgAlert({
           heading: 'Change Password Failed with error: ' + error.message,
           message: changePasswordFailure,

@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react'
 
 import { indexOrders } from '../../api/orders'
+import handleBadCreds from '../../lib/handleBadCreds'
 
-const OrderHistory = ({ msgAlert, user }) => {
+const OrderHistory = ({ msgAlert, history, clearUser, user }) => {
   const [orders, setOrders] = useState(null)
 
   useEffect(() => {
@@ -13,11 +14,14 @@ const OrderHistory = ({ msgAlert, user }) => {
         message: 'All completed orders displayed',
         variant: 'success'
       }))
-      .catch(err => msgAlert({
-        heading: 'Order History Failure',
-        message: 'Something went wrong: ' + err.message,
-        variant: 'danger'
-      }))
+      .catch(err => {
+        handleBadCreds(err, history, clearUser)
+        msgAlert({
+          heading: 'Order History Failure',
+          message: 'Something went wrong: ' + err.message,
+          variant: 'danger'
+        })
+      })
   }, [])
 
   if (orders === null) {
